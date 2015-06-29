@@ -27,7 +27,12 @@ def configure_loggers(app):
         app.logger.setLevel(logging.INFO)
 
 def configure_uploads(app):
+    import os
     from flaskext.uploads import UploadSet, IMAGES, configure_uploads as config_uploads
+
+    # force image destination
+    dest = os.path.join(app.root_path, 'static', 'uploads', 'images')
+    app.config['UPLOADS_DEFAULT_DEST'] = dest
     app.photos = UploadSet('lolcommit', IMAGES)
     config_uploads(app, (app.photos,))
 
