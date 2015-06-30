@@ -7,7 +7,7 @@ class Config(object):
     TESTING = False
 
     # static folder inside app
-    STATIC_FOLDER = 'static'
+    # STATIC_FOLDER = 'static'
 
     UPLOADED_FILES_ALLOW=IMAGES
     # UPLOADS_DEFAULT_DEST='/tmp/lolcommits'
