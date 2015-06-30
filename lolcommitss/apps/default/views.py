@@ -14,9 +14,10 @@ from werkzeug.datastructures import FileStorage
 from flaskext.uploads import UploadSet, IMAGES
 
 from flask import url_for
+from flask import render_template
 from .models import Photo
 
-blueprint = Blueprint('default', __name__)
+blueprint = Blueprint('default', __name__, template_folder='templates')
 
 
 @blueprint.route('/upload', methods=['POST', ])
@@ -34,3 +35,12 @@ def upload(args):
     c.db.session.commit()
 
     return make_response('Ok', 200)
+
+@blueprint.route('/', methods=['GET', ])
+def root():
+    return render_template('root.html.j2')
+
+@blueprint.route('/repo/<repo>', methods=['GET', ])
+def repo(repo):
+    photos = c.db.session.query(Photo).filter(Photo.repo == repo).all()
+    return render_template('repo.html.j2', photos = photos)
