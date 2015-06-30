@@ -30,14 +30,18 @@ def configure_uploads(app):
     import os
     from flaskext.uploads import UploadSet, IMAGES, configure_uploads as config_uploads
 
-    # force image destination
-    dest = os.path.join(app.root_path, 'static', 'uploads', 'images')
-    app.config['UPLOADS_DEFAULT_DEST'] = dest
+    if 'UPLOADS_DEFAULT_DEST' not in app.config:
+        static_folder = app.config.get("STATIC_FOLDER", os.path.join(app.root_path, 'static'))
+        # force image destination
+        dest = os.path.join(static_folder, 'uploads',)
+        app.config['UPLOADS_DEFAULT_DEST'] = dest
+
     app.photos = UploadSet('lolcommit', IMAGES)
     config_uploads(app, (app.photos,))
 
 
 def register_all(app):
+    register_db(app)
     register_blueprints(app)
 
 
@@ -45,3 +49,9 @@ def register_blueprints(app):
     from lolcommitss.apps.default import views as default_views
     # app.register_blueprint(default_views.blueprint, url_prefix='/')
     app.register_blueprint(default_views.blueprint)
+
+
+def register_db(app):
+    from flask.ext.sqlalchemy import SQLAlchemy
+    db = SQLAlchemy(app)
+    app.db = db
