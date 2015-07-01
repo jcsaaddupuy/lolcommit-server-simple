@@ -1,1 +1,6 @@
 hello world
+<ul>
+{% for repo, url in repos.items() %}
+    <a href="{{url}}">{{repo}}</a>
+{% endfor %}
+</ul>
