@@ -10,6 +10,6 @@ class Config(object):
     # STATIC_FOLDER = 'static'
 
     UPLOADED_FILES_ALLOW=IMAGES
-    # UPLOADS_DEFAULT_DEST='/tmp/lolcommits'
-    SQLALCHEMY_DATABASE_URI="sqlite:///foo.db"
+    UPLOADS_DEFAULT_DEST='/data/uploads'
+    SQLALCHEMY_DATABASE_URI="sqlite:////data/foo.db"
 

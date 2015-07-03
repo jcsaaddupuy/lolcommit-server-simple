@@ -2,10 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
+from setuptools import setup, find_packages
 
 
 with open('README.rst') as readme_file:
@@ -24,11 +21,7 @@ setup(
     author="Jean-Christophe Saad-Dupuy",
     author_email='jc.saaddupuy@fsfe.org',
     url='https://github.com/jcsaaddupuy/lolcommitss',
-    packages=[
-        'lolcommitss',
-    ],
-    package_dir={'lolcommitss':
-                 'lolcommitss'},
+    packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
 
 
     # configure the default command line entry point.
@@ -41,6 +34,10 @@ setup(
 
 
     include_package_data=True,
+    package_data={
+        'templates' : 'lolcommitss/apps/default/templates/*'
+    },
+
     install_requires=requirements,
     license="WTFPL",
     zip_safe=False,
